@@ -1,0 +1,136 @@
+<html>
+  <head>
+    <title>Greg</title>
+    <style>
+      #wrapper{
+        width: 100vw;
+        overflow-x: hidden;
+      }
+      #container{
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+      }
+      .item{
+        overflow: hidden;
+        position: relative;
+        align-items: center;
+        width: 23%;
+        height: 400px;
+        padding: 15px;
+      }
+      .item img{
+        width: 100%;
+        height: 300px;
+      }
+      .text-container{
+        width: 100%;
+        text-align: center;
+        position: absolute;
+        background-color: white;
+        opacity: 0.8;
+        transform: none;
+        border-top: 1px solid black;
+        transition: all 300ms ease;
+      }
+      .title{
+        font-size: 1.1rem;
+      }
+      .descriptions{
+        display: none;
+      }
+      .item:hover .text-container{
+        transform: translateY(-130px);
+        transition: all 300ms ease;
+      }
+      .item:hover .descriptions{
+        display: block;
+      }
+      .arow{
+        position: absolute;
+        left: 45%;
+        background-color: white;
+        color: black;
+        font-weight: bold;
+        font-size: 1.6em;
+        padding: 5px;
+        border-top: 1px solid black;
+        border-radius: 50%;
+        transform: translateY(-19px);
+      }
+      @media screen and (max-width: 800px) {
+        .item{
+          width: 100%;
+        }
+      }
+    </style>
+    <script>
+      const fetchData = async () => {
+        try{
+          let response = await fetch('https://fakestoreapi.com/products');
+          return await response.json();
+        }
+        catch(err){
+          console.error(err);
+        }
+      }
+
+    </script>
+  </head>
+  <body>
+    <div id="wrapper">
+      <div id='container'>
+        <script>
+          // create card for product
+          function createItem(){
+            const item = document.createElement('div');
+            item.setAttribute('class','item');
+            return item;
+          }
+          //create image for product
+          function createImg(url,alt){
+            const img = document.createElement('img');
+            img.setAttribute('src',url);
+            img.setAttribute('alt',alt);
+            return img;
+          }
+          // create div container with title and description
+          function createTextContainer(title,description) {
+            const container = document.createElement('div');
+            const titleEl = document.createElement('h4');
+            const descriptionEl = document.createElement('p');
+            const arowDiv = document.createElement('div');
+            arowDiv.setAttribute('class','arow');
+            arowDiv.innerHTML = "@"
+            titleEl.innerHTML=title;
+            descriptionEl.innerHTML=description;
+            descriptionEl.setAttribute('class','descriptions');
+            container.setAttribute('class','text-container');
+            container.appendChild(arowDiv)
+            container.appendChild(titleEl);
+            container.appendChild(descriptionEl);
+            return container;
+          }
+          // get container of all products
+          const container = document.getElementById('container');
+          // fetch data and set all card
+          fetchData()
+          .then((data)=>{
+            console.log(data)
+            data.map(el=>{
+              let item = createItem();
+              let img = createImg(el.image,el.title);
+              let textContainer = createTextContainer(el.title,el.description);
+              item.appendChild(img);
+              item.appendChild(textContainer);
+              container.appendChild(item);
+            });
+          })
+
+        </script>
+      </div>
+    </div>
+  </body>
+</html>

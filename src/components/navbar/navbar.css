@@ -1,0 +1,31 @@
+.App-nav{
+  width: 100vw;
+  display: flex;
+  background-color: whitesmoke;
+  box-shadow: 0px 1px 8px 2px black;
+  flex-direction: row;
+  justify-content: space-evenly;
+  padding: 10px;
+  margin: 0;
+  z-index: 999;
+}
+.link{
+  color: black;
+  text-decoration: none;
+  text-shadow: 1px 1px gray;
+  background-color: white;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0px 3px 2px 1px grey;
+  transition: all 200ms ease-in;
+}
+.active-link {
+  color: white;
+  text-shadow: 1px 1px gray;
+  background-color: rgba(0,0,0,0.9);
+  transition: all 200ms ease-in;
+}
+.link:active{
+  box-shadow: none;
+  transition: all 100ms ease-in;
+}
